@@ -8,41 +8,42 @@ import java.io.*;
  */
 public class NodeVisitor implements Visitor {
 
-    public String content;
+    public String content = "";
+    public int i=0;
     @Override
     public String visit(VisitableNode node) {
-
-       this.content = String.format("<%s>",node.data());
-       Iterator<VisitableNode> childs = node.subtrees().iterator();
-       VisitableNode currentNode;
-       while(childs.hasNext()) {
-              if(!(currentNode = childs.next()).isLeaf())
-           this.content += currentNode.accept(this);
-              else{
-                  if(currentNode.data().equals("integer") || currentNode.data().equals("boolean"))
-                      this.content += String.format("<%s/>",currentNode.data());
-                  else
-                  this.content += String.format("%s",currentNode.data());
-              }
-       }
-       this.content +=String.format("</%s>",node.data());
-
-            saveFileXML(content);
+        this.content = String.format("<%s>",node.data());
+        Iterator<VisitableNode> childs = node.subtrees().iterator();
+        VisitableNode currentNode;
+        while(childs.hasNext()) {
+            if(!(currentNode = childs.next()).isLeaf()){
+                this.content += currentNode.accept(this);
+            }
+            else{
+                if(currentNode.data().equals("integer") || currentNode.data().equals("boolean"))
+                    this.content += String.format("<%s/>",currentNode.data());
+                else
+                    this.content += String.format("%s",currentNode.data());
+            }
+        }
+        this.content += String.format("</%s>",node.data());
         return this.content;
     }
 
-    public void saveFileXML(String content){
+    public void saveFileXML(){
         Writer writer = null;
 
         try {
             writer = new BufferedWriter(new OutputStreamWriter(
-                    new FileOutputStream("file_XML_Output.xml"), "utf-8"));
-            writer.write(content);
+                    new FileOutputStream("file.xml"), "utf-8"));
+            writer.write(this.content);
             writer.close();
         } catch (IOException ex) {
-            // report
+            System.out.println("Errore nella scrittura del file");
         } finally {
-            try {writer.close();} catch (Exception ex) {/*ignore*/}
+            try {writer.close();} catch (Exception ex) {
+                System.out.println("Errore durante la chiusura del file");
+            }
         }
     }
 

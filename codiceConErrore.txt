@@ -1,7 +1,7 @@
 program prova;
-var a1  ,  a2   integer;
+var  ,  a2   integer;
 b1   boolean ;
-c1  ,  c2   integer;
+c1 , c2  integer;
 procedure proc1 ;
 var a1 ,  b1   integer ;
 begin

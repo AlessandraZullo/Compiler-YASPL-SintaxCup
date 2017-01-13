@@ -7,7 +7,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="tree-0.2.3" level="project" />
     <orderEntry type="library" name="java-cup-11b1" level="project" />
+    <orderEntry type="library" name="tree_main" level="project" />
   </component>
 </module>
